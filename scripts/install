@@ -1,0 +1,25 @@
+#!/bin/bash
+# WF 2020-03-25
+os=$(uname -a)
+useroption="--user"
+
+case $os in
+  Darwin*)
+   pip="pip3"
+   install="sudo port install"
+   ;;
+  *)
+   pip="pip3"
+   if [ "$USER" = "travis" ]
+   then
+     # https://stackoverflow.com/a/20621143/1497139
+     echo "environment is travis with python version $TRAVIS_PYTHON_VERSION"
+     pip="pip"
+     useroption=""
+   fi
+   install="sudo apt-get install"
+   ;;
+esac
+$pip --version
+echo "installing required python modules with useroption $useroption"
+if [ -f requirements.txt ]; then $pip install $useroption -r requirements.txt; fi
