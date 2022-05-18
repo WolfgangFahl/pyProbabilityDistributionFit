@@ -12,10 +12,10 @@ Probabilty Distribution Fit
 [![License](https://img.shields.io/github/license/WolfgangFahl/pyProbabilityDistributionFit.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Documentation
-[Issue #1](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/issues/1)
-[Wiki](http://wiki.bitplan.com/index.php/pyProbabilityDistributionFit)
+* [Issue #1](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/issues/1)
+* [Wiki](http://wiki.bitplan.com/index.php/pyProbabilityDistributionFit)
 
 ### Authors
 * [Saullo G. P. Castro](https://stackoverflow.com/users/832621/saullo-g-p-castro) [2013 Answer](https://stackoverflow.com/a/16651955/1497139)
 * [Timothy Davenport](https://stackoverflow.com/users/2087463/tmthydvnprt) [2016 Answer](https://stackoverflow.com/a/37616966/1497139)
-* [Wolfgang Fahl](http://www.bitplan.com/Wolfgang_Fahl)
+* [Wolfgang Fahl](http://www.bitplan.com/Wolfgang_Fahl) [2022 Answer](https://stackoverflow.com/a/72283452/1497139)
