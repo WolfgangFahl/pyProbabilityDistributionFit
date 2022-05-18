@@ -1,7 +1,7 @@
 import pathlib
 from setuptools import setup
 from collections import OrderedDict
-from spreadsheet.version import Version
+from pdffit.version import Version
 
 here = pathlib.Path(__file__).parent.resolve()
 readme= (here/"README.md").read_text()
