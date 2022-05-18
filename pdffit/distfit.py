@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 
+from typing import Callable
 from scipy.stats._continuous_distns import _distn_names
 
 import statsmodels.api as sm
@@ -34,7 +35,7 @@ class BestFitDistribution():
     Find the best Probability Distribution Function for the given data
     '''
     
-    def __init__(self,data,distributionNames:list=None,debug:bool=False):
+    def __init__(self,data,backend:str="WebAgg",distributionNames:list=None,debug:bool=False):
         '''
         constructor
         
@@ -44,6 +45,7 @@ class BestFitDistribution():
             debug(bool): if True show debugging information
         '''
         self.debug=debug
+        self.backend=backend
         self.matplotLibParams()
         if distributionNames is None:
             self.distributionNames=[d for d in _distn_names if not d in ['levy_stable', 'studentized_range']]
@@ -57,7 +59,7 @@ class BestFitDistribution():
         '''
         matplotlib.rcParams['figure.figsize'] = (16.0, 12.0)
         #matplotlib.style.use('ggplot')
-        matplotlib.use("WebAgg")
+        matplotlib.use(self.backend)
 
     # Create models from data
     def best_fit_distribution(self,bins:int=200, ax=None,density:bool=True):
@@ -145,7 +147,7 @@ class BestFitDistribution():
     
         return pdf
     
-    def analyze(self,title,x_label,y_label,outputFilePrefix=None,imageFormat:str='png',allBins:int=50,distBins:int=200,density:bool=True):
+    def analyze(self,title,x_label,y_label,callback:Callable=None,outputFilePrefix=None,imageFormat:str='png',allBins:int=50,distBins:int=200,density:bool=True):
         """
         
         analyze the Probabilty Distribution Function
@@ -155,8 +157,12 @@ class BestFitDistribution():
             title(str): the title to use
             x_label(str): the label for the x-axis
             y_label(str): the label for the y-axis
+            
+            callback(Callable): a function to be called for the plots
+            
             outputFilePrefix(str): the prefix of the outputFile
             imageFormat(str): imageFormat e.g. png,svg
+            
             allBins(int): the number of bins for all
             distBins(int): the number of bins for the distribution
             density(bool): if True show relative density
@@ -167,16 +173,21 @@ class BestFitDistribution():
         self.title=title
         self.x_label=x_label
         self.y_label=y_label
+        self.callback=callback
         self.imageFormat=imageFormat
         self.outputFilePrefix=outputFilePrefix
         self.color=list(matplotlib.rcParams['axes.prop_cycle'])[1]['color']
         self.best_dist=None
         self.analyzeAll()
+        if self.callback:
+            self.callback(self.figAll,isAll=True)
         if outputFilePrefix is not None:
             self.saveFig(f"{outputFilePrefix}All.{imageFormat}", imageFormat)
             plt.close(self.figAll)
         if self.best_dist:
             self.analyzeBest()
+            if self.callback:
+                self.callback(self.figBest,isAll=False)
             if outputFilePrefix is not None:
                 self.saveFig(f"{outputFilePrefix}Best.{imageFormat}", imageFormat)
                 plt.close(self.figBest)

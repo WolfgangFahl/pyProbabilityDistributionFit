@@ -6,7 +6,8 @@ Created on 2022-05-17
 from tests.basetest import BaseTest
 import numpy as np
 import pandas as pd
-import random
+from scipy.special import zeta 
+import matplotlib
 import matplotlib.pyplot as plt
 #from collections import Counter
 from pdffit.distfit import BestFitDistribution
@@ -23,20 +24,47 @@ class TestProbabilityDistributionFit(BaseTest):
         BaseTest.setUp(self, debug=debug, profile=profile)
         self.outputroot="/tmp/pdfit"
         os.makedirs(self.outputroot,exist_ok=True)
+        np.random.seed(0)
             
     def testZipf(self):
         '''
         test the Zipf distribution
         '''
+        
+        def callback(fig,isAll:bool):
+            '''
+            modify the histogramm
+            '''
+            plt.semilogy()
+            pass
         show=False
-        for a in [1.2,1.4,1.6]:
-            x = np.random.zipf(a=a, size=1000)
-            xlog=np.log(x)
-            df = pd.Series(xlog) 
+        datapoints=1000
+        for a in [4.0]:
+            x = np.random.default_rng().zipf(a, size=datapoints)
+            df= pd.DataFrame({'zipf':x})
             # distributionNames=["powerlaw","norm"]
             
             bfd=BestFitDistribution(df)
-            bfd.analyze(f"Zipf distribution a={a:.1f}", x_label="x", y_label="zipf(x,a)",density=False,outputFilePrefix=f"/tmp/zipf{a}")
+            bfd.analyze(f"Zipf distribution a={a:.1f}", x_label="x", y_label="zipf(x,a)",density=True,callback=callback,outputFilePrefix=f"{self.outputroot}/zipf{a}")
+        if show:
+            plt.show()
+            
+    def testZipfDisplay(self):
+        show=True
+        if show:
+            matplotlib.use("WebAgg")
+        # https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.zipf.html#numpy.random.Generator.zipf
+        a=4.0
+        n=1000
+        s = np.random.default_rng().zipf(a, size=n)
+        count = np.bincount(s)
+        k = np.arange(1, s.max() + 1)
+        plt.bar(k, count[1:], alpha=0.5, label='sample count')
+        plt.plot(k, n*(k**-a)/zeta(a), 'k.-', alpha=0.5,label='expected count')   
+        plt.semilogy()
+        plt.grid(alpha=0.4)
+        plt.legend()
+        plt.title(f'Zipf sample, a={a}, size={n}')
         if show:
             plt.show()
             
@@ -45,12 +73,12 @@ class TestProbabilityDistributionFit(BaseTest):
         test the normal distribution
         '''
         # use euler constant as seed
-        np.random.seed(0)
+        
         # statistically relevant number of datapoints
         datapoints=1000
         a = np.random.normal(40, 10, datapoints)
         df= pd.DataFrame({'nums':a})
-        outputFilePrefix="/tmp/normalDist"
+        outputFilePrefix=f"{self.outputroot}/normalDist"
         bfd=BestFitDistribution(df,debug=True)
         bfd.analyze(title="normal distribution",x_label="x",y_label="random",outputFilePrefix=outputFilePrefix)
         
