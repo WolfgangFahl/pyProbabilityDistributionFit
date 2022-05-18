@@ -58,7 +58,7 @@ class BestFitDistribution():
         set matplotlib parameters
         '''
         matplotlib.rcParams['figure.figsize'] = (16.0, 12.0)
-        #matplotlib.style.use('ggplot')
+        matplotlib.style.use('ggplot')
         matplotlib.use(self.backend)
 
     # Create models from data
@@ -147,7 +147,7 @@ class BestFitDistribution():
     
         return pdf
     
-    def analyze(self,title,x_label,y_label,callback:Callable=None,outputFilePrefix=None,imageFormat:str='png',allBins:int=50,distBins:int=200,density:bool=True):
+    def analyze(self,title,x_label,y_label,facecolor='b',alpha=0.5,callback:Callable=None,outputFilePrefix=None,imageFormat:str='png',allBins:int=50,distBins:int=200,density:bool=True):
         """
         
         analyze the Probabilty Distribution Function
@@ -157,6 +157,9 @@ class BestFitDistribution():
             title(str): the title to use
             x_label(str): the label for the x-axis
             y_label(str): the label for the y-axis
+            
+            facecolor(str): the color to use
+            alpha(float): the opacity to use
             
             callback(Callable): a function to be called for the plots
             
@@ -173,10 +176,11 @@ class BestFitDistribution():
         self.title=title
         self.x_label=x_label
         self.y_label=y_label
+        self.facecolor=facecolor
+        self.alpha=alpha
         self.callback=callback
         self.imageFormat=imageFormat
         self.outputFilePrefix=outputFilePrefix
-        self.color=list(matplotlib.rcParams['axes.prop_cycle'])[1]['color']
         self.best_dist=None
         self.analyzeAll()
         if self.callback:
@@ -200,7 +204,7 @@ class BestFitDistribution():
         # Plot for comparison
         figTitle=f"{self.title}\n All Fitted Distributions"
         self.figAll=plt.figure(figTitle,figsize=(12,8))
-        ax = self.data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=0.5, color=self.color)
+        ax = self.data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=self.alpha, facecolor=self.facecolor)
         
         # Save plot limits
         dataYLim = ax.get_ylim()
@@ -225,7 +229,7 @@ class BestFitDistribution():
         figLabel="PDF"
         self.figBest=plt.figure(figLabel,figsize=(12,8))
         ax = self.pdf.plot(lw=2, label=figLabel, legend=True)
-        self.data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=0.5, label='Data', legend=True, ax=ax,color=self.color)
+        self.data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=self.alpha, label='Data', legend=True, ax=ax,facecolor=self.facecolor)
         
         param_names = (self.best_dist[0].shapes + ', loc, scale').split(', ') if self.best_dist[0].shapes else ['loc', 'scale']
         param_str = ', '.join(['{}={:0.2f}'.format(k,v) for k,v in zip(param_names, self.best_dist[1])])
@@ -249,7 +253,8 @@ class BestFitDistribution():
 if __name__ == '__main__':
     # Load data from statsmodels datasets
     data = pd.Series(sm.datasets.elnino.load_pandas().data.set_index('YEAR').values.ravel())
-    
+    #color=list(matplotlib.rcParams['axes.prop_cycle'])[1]['color']
+   
     bfd=BestFitDistribution(data)
     for density in [True,False]:
         suffix="density" if density else ""
