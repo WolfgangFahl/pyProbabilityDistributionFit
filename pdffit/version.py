@@ -8,7 +8,7 @@ class Version(object):
     '''
     Version handling for pyProbabilityDistributionFit
     '''
-    version='0.0.1'
+    version='0.0.2'
     date = '2022-05-18'
     updated = '2022-05-19'
     name='pyProbabilityDistributionFit'
