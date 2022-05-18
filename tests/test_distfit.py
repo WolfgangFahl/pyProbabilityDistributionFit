@@ -6,11 +6,12 @@ Created on 2022-05-17
 from tests.basetest import BaseTest
 import numpy as np
 import pandas as pd
+import random
 import matplotlib.pyplot as plt
-from collections import Counter
+#from collections import Counter
 from pdffit.distfit import BestFitDistribution
 import os
-import sys
+#import sys
 
 
 class TestProbabilityDistributionFit(BaseTest):
@@ -38,4 +39,18 @@ class TestProbabilityDistributionFit(BaseTest):
             bfd.analyze(f"Zipf distribution a={a:.1f}", x_label="x", y_label="zipf(x,a)",density=False,outputFilePrefix=f"/tmp/zipf{a}")
         if show:
             plt.show()
+            
+    def testNormal(self):
+        '''
+        test the normal distribution
+        '''
+        # use euler constant as seed
+        np.random.seed(0)
+        # statistically relevant number of datapoints
+        datapoints=1000
+        a = np.random.normal(40, 10, datapoints)
+        df= pd.DataFrame({'nums':a})
+        outputFilePrefix="/tmp/normalDist"
+        bfd=BestFitDistribution(df,debug=True)
+        bfd.analyze(title="normal distribution",x_label="x",y_label="random",outputFilePrefix=outputFilePrefix)
         

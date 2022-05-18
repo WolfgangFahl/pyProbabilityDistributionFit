@@ -14,11 +14,14 @@ see  https://stackoverflow.com/a/37616966/1497139
 see 
 
 '''
+import traceback
 import sys
 import warnings
+
 import numpy as np
 import pandas as pd
 import scipy.stats as st
+
 from scipy.stats._continuous_distns import _distn_names
 
 import statsmodels.api as sm
@@ -82,7 +85,7 @@ class BestFitDistribution():
                     warnings.filterwarnings('ignore')
                     
                     # fit dist to data
-                    params = distribution.fit(data)
+                    params = distribution.fit(self.data)
     
                     # Separate parts of parameters
                     arg = params[:-2]
@@ -105,7 +108,8 @@ class BestFitDistribution():
             
             except Exception as ex:
                 if self.debug:
-                    msg=f"fit for {distributionName} failed:{ex}"
+                    trace=traceback.format_exc()
+                    msg=f"fit for {distributionName} failed:{ex}\n{trace}"
                     print(msg,file=sys.stderr)
                 pass
         
@@ -210,7 +214,7 @@ class BestFitDistribution():
         figLabel="PDF"
         self.figBest=plt.figure(figLabel,figsize=(12,8))
         ax = self.pdf.plot(lw=2, label=figLabel, legend=True)
-        data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=0.5, label='Data', legend=True, ax=ax,color=self.color)
+        self.data.plot(kind='hist', bins=self.allBins, density=self.density, alpha=0.5, label='Data', legend=True, ax=ax,color=self.color)
         
         param_names = (self.best_dist[0].shapes + ', loc, scale').split(', ') if self.best_dist[0].shapes else ['loc', 'scale']
         param_str = ', '.join(['{}={:0.2f}'.format(k,v) for k,v in zip(param_names, self.best_dist[1])])
