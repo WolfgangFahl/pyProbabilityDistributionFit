@@ -50,7 +50,10 @@ class TestProbabilityDistributionFit(BaseTest):
             plt.show()
             
     def testZipfDisplay(self):
-        show=True
+        '''
+        test the Zipf Distribution display
+        '''
+        show=not self.inPublicCI()
         if show:
             matplotlib.use("WebAgg")
         # https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.zipf.html#numpy.random.Generator.zipf
