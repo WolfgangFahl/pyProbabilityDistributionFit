@@ -1,8 +1,9 @@
 # pyProbabilityDistributionFit
 Probabilty Distribution Fit
 
-## Motivation
-[Stackoverflow Question Distribution Fitting with Sum of Square Error](https://stackoverflow.com/questions/6620471/fitting-empirical-distribution-to-theoretical-ones-with-scipy-python)
+## Motivation: Stackoverflow questions
+[Distribution Fitting with Sum of Square Error](https://stackoverflow.com/questions/6620471/fitting-empirical-distribution-to-theoretical-ones-with-scipy-python)
+[What do all the distributions available in scipy.stats look like?](https://stackoverflow.com/questions/37559470/what-do-all-the-distributions-available-in-scipy-stats-look-like/37559471#37559471)
 
 [![pypi](https://img.shields.io/pypi/pyversions/pyProbabilityDistributionFit)](https://pypi.org/project/pyProbabilityDistributionFit/)
 [![Github Actions Build](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/workflows/Build/badge.svg?branch=main)](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/actions?query=workflow%3ABuild+branch%3Amain)
