@@ -6,10 +6,11 @@ Probabilty Distribution Fit
 * [What do all the distributions available in scipy.stats look like?](https://stackoverflow.com/questions/37559470/what-do-all-the-distributions-available-in-scipy-stats-look-like/37559471#37559471)
 
 [![pypi](https://img.shields.io/pypi/pyversions/pyProbabilityDistributionFit)](https://pypi.org/project/pyProbabilityDistributionFit/)
-[![Github Actions Build](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/workflows/Build/badge.svg?branch=main)](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/actions?query=workflow%3ABuild+branch%3Amain)
+[![Github Actions Build](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/actions/workflows/build.yml/badge.svg)](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/actions/workflows/build.yml)
 [![PyPI Status](https://img.shields.io/pypi/v/pyProbabilityDistributionFit.svg)](https://pypi.python.org/pypi/pyProbabilityDistributionFit/)
 [![GitHub issues](https://img.shields.io/github/issues/WolfgangFahl/pyProbabilityDistributionFit.svg)](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/WolfgangFahl/pyProbabilityDistributionFit.svg)](https://github.com/WolfgangFahl/pyProbabilityDistributionFit/issues/?q=is%3Aissue+is%3Aclosed)
+[![API Docs](https://img.shields.io/badge/API-Documentation-blue)](https://WolfgangFahl.github.io/pyProbabilityDistributionFit/)
 [![License](https://img.shields.io/github/license/WolfgangFahl/pyProbabilityDistributionFit.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Documentation

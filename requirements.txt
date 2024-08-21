@@ -1,9 +1,0 @@
-#https://pypi.org/project/pandas/
-pandas>=1.4.2
-# https://pypi.org/project/matplotlib/
-matplotlib>=3.5.2
-# https://www.statsmodels.org/stable/index.html
-statsmodels>=0.13.2
-# Tornado
-# https://pypi.org/project/tornado/
-tornado>=6.1

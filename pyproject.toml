@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyProbabilityDistributionFit"
+authors = [
+    { name = "Wolfgang Fahl", email = "wf@bitplan.com" }
+]
+maintainers = [
+    { name = "Wolfgang Fahl", email = "wf@bitplan.com" }
+]
+readme = "README.md"
+license = "Apache-2.0"
+
+dependencies = [
+    # https://pypi.org/project/pandas/
+    "pandas>=1.4.2",
+    # https://pypi.org/project/matplotlib/
+    "matplotlib>=3.5.2",
+    # https://www.statsmodels.org/stable/index.html
+    "statsmodels>=0.13.2",
+    # Tornado
+    # https://pypi.org/project/tornado/
+    "tornado>=6.1",
+    # pdffit package
+    "pdffit"
+]
+requires-python = ">=3.9"
+
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+
+dynamic = ["version", "description"]
+
+[project.urls]
+Home = "https://github.com/WolfgangFahl/pyProbabilityDistributionFit"
+Documentation = "https://wiki.bitplan.com/index.php/PyProbabilityDistributionFit"
+Source = "https://github.com/WolfgangFahl/pyProbabilityDistributionFit"
+
+[tool.hatch.version]
+path = "pdffit/__init__.py"
+
+[project.optional-dependencies]
+test = []
+
+[tool.hatch.build.targets.wheel]
+only-include = ["pdffit"]
+
+[tool.hatch.build.targets.wheel.sources]
+"pdffit" = "pdffit"
